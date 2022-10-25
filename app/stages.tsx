@@ -16,11 +16,11 @@ export default function Stages() {
             return(
                 <AudioButton
                     onPress={()=>{
-
+                        navigation.navigate(v.goto as never)
                     }}
                 >
                     <View style={{
-                        width:(layouts.window.width / 5) - 17.5,
+                        width:(layouts.window.width / 4) - 17.5,
                         backgroundColor:Colors.white,
                         borderRadius:20,
                         alignItems:"center"
@@ -40,7 +40,7 @@ export default function Stages() {
                             <Text style={{textAlign:"center"}}>{v.name}</Text>
                             <Text style={{textAlign:"center"}} size={12} color="textSecondary" >{v.description}</Text>
                         </View>
-                        <View style={{
+                        {/* <View style={{
                             flexDirection:"row",
                             marginBottom:-12,
                             backgroundColor:Colors.text,
@@ -51,7 +51,7 @@ export default function Stages() {
                             <IonIcon name="md-star" size={16} color={Colors.white} />
                             <IonIcon name="md-star" size={16} color={Colors.white} />
                             <IonIcon name="md-star" size={16} color={Colors.white} />
-                        </View>
+                        </View> */}
                     </View>
                 </AudioButton>
             )
