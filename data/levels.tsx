@@ -7,20 +7,20 @@ const levels = [
     },
     {
         name:"Level 2",
-        description:"Baca dan Ucapkan",
-        goto:"LevelOne",
+        description:"Tebak Gambar",
+        goto:"LevelTwo",
         stages:2,
     },
     {
         name:"Level 3",
         description:"Pecahkan Puzzle",
-        goto:"LevelOne",
+        goto:"LevelThree",
         stages:3,
     },
     {
         name:"Level 4",
         description:"Tebak dan pilih",
-        goto:"LevelOne",
+        goto:"LevelFour",
         stages:4,
     },
 ]

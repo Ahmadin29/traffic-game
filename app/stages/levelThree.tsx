@@ -2,21 +2,21 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Alert, Image, ImageBackground, TextInput, TouchableOpacity, View } from "react-native";
 import IonIcon from "@expo/vector-icons/Ionicons";
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import Animated, { color, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import AudioButton from "../../components/AudioButton";
 import Controller from "../../components/Controller";
 import Text from "../../components/Text";
 import Colors from "../../constants/colors";
 import layouts from "../../constants/layouts";
-import stage_1 from "../../data/stage_1";
+import stage_3 from "../../data/stage_3";
 import Voice from '@react-native-voice/voice';
 
-export default function LevelOne() {
+export default function LevelThree() {
 
     const randomWidth = useSharedValue(0);
     const [stage,setStage] = useState(1);
     const [showQuestion,setShowQuestion] = useState(false);
-    const [answer,setAnswer] = useState("");
+    const [answer,setAnswer] = useState<any>(null);
     const [isStarted,setIsStarted] = useState(false);
     const [isFinished,setFinished] = useState(false);
 
@@ -34,6 +34,8 @@ export default function LevelOne() {
     });
     
     useEffect(()=>{
+
+        console.log(stage_3);
 
         async function checkVoiceAvailability() {
           const data =  await Voice.isAvailable();
@@ -103,7 +105,7 @@ export default function LevelOne() {
                         />
                     </View>
                     {
-                        stage_1.map((v:any,i:number)=>{
+                        stage_3.map((v:any,i:number)=>{
                             return (
                                 <View style={{
                                     position:"relative",
@@ -135,6 +137,14 @@ export default function LevelOne() {
                                                 height:"100%"
                                             }}
                                         />
+                                        <View style={{
+                                            width:"50%",
+                                            height:"100%",
+                                            position:"absolute",
+                                            backgroundColor:Colors.text,
+                                            borderTopLeftRadius:100,
+                                            borderBottomLeftRadius:100,
+                                        }} ></View>
                                     </View>
 
                                     <View style={{
@@ -217,20 +227,20 @@ export default function LevelOne() {
                         backgroundColor:Colors.success
                     }} onPress={()=>{
     
-                        console.log(stage_1[stage-1]?.answer);
+                        console.log(stage_3[stage-1]?.answer);
                         
-                        if (stage_1[stage-1]?.answer.includes(answer)) {
+                        if (stage_3[stage-1]?.correct == answer) {
                             setStage(stage + 1)
                             setShowQuestion(false)
                             randomWidth.value = randomWidth.value + 20;
 
                             Alert.alert('Benar!','Jawaban kamu tepat sekali')
-                            setAnswer("");
+                            setAnswer(null)
                         }else{
                             Alert.alert('Salah!','Hmmm, sepertinya jawaban kamu kurang tepat')
                         }
     
-                        console.log(stage_1[stage-1]?.answer,answer);
+                        console.log(stage_3[stage-1]?.answer,answer);
     
                         if (stage + 1 > 3) {
                             return
@@ -248,7 +258,7 @@ export default function LevelOne() {
                                 if (randomWidth.value + 20 == (Math.floor(layouts.window.width / 20) * 20) * stage) {
                                     clearInterval(interval);
 
-                                    if (stage - 1 < stage_1.length) {
+                                    if (stage - 1 < stage_3.length) {
                                         setShowQuestion(true)
                                     }else{
                                         setFinished(true)
@@ -284,7 +294,7 @@ export default function LevelOne() {
                     <Text size={20} style={{
                         marginBottom:10,
                     }} >Pertanyaan</Text>
-                    <Text color="textSecondary" >{stage_1[stage - 1]?.question}</Text>
+                    <Text color="textSecondary" >{stage_3[stage - 1]?.question}</Text>
 
                     <View style={{
                         borderWidth:1,
@@ -292,31 +302,33 @@ export default function LevelOne() {
                         marginTop:20,
                         flexDirection:"row",
                         borderRadius:10,
+                        padding:10,
                     }} >
-                        <TextInput
-                            style={{
-                                padding:5,
-                                paddingHorizontal:10,
-                                backgroundColor:Colors.grey1,
-                                borderRadius:10,
-                                flex:1,
-                            }}
-                            value={answer}
-                            onChangeText={(text)=>{
-                                setAnswer(text)
-                            }}
-                            placeholder="Jawaban Kamu"
-                        />
-                        <TouchableOpacity style={{
-                            flexDirection:"row",
-                            alignItems:"center",
-                            padding:10,
-                        }} onPress={()=>{
-                            onSpeechStart()
-                        }} >
-                            <IonIcon color={isStarted ? Colors.danger : Colors.text} size={20} name="md-mic" />
-                            <Text color={isStarted ? "danger": "text"}>Jawab Dengan Suara</Text>
-                        </TouchableOpacity>
+                        {
+                            stage_3[stage - 1].answer.map((v:any,index:any)=>{
+                                return(
+                                    <TouchableOpacity
+                                        onPress={()=>{
+                                            setAnswer(index)
+                                        }}
+                                        style={{
+                                            marginRight:10,
+                                            borderColor:index == answer ? Colors.success : Colors.grey1,
+                                            borderWidth:10,
+                                            borderRadius:100,
+                                        }}
+                                    >
+                                        <Image
+                                            source={v.image}
+                                            style={{
+                                                width:50,
+                                                height:50,
+                                            }}
+                                        />
+                                    </TouchableOpacity>
+                                )
+                            })
+                        }
                     </View>
                 </View>
             }

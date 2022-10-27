@@ -21,6 +21,7 @@ export default function Controller(props:ButtonProps) {
             style={{
                 padding:20,
                 backgroundColor:Colors.primary,
+                alignItems:"center",
             }}
         >
             <Text>Gas</Text>
