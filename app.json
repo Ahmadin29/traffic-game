@@ -31,6 +31,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugin":["@react-native-voice/voice"]
+    "plugin": [
+      "@react-native-voice/voice"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7cfa420e-640b-447e-8967-ec6bd69dc5cf"
+      }
+    }
   }
 }
