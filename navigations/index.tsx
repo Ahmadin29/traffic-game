@@ -6,6 +6,7 @@ import LevelFour from "../app/stages/levelFour";
 import LevelOne from "../app/stages/levelOne";
 import LevelThree from "../app/stages/levelThree";
 import LevelTwo from "../app/stages/levelTwo";
+import About from "../app/about";
 
 export default function Navigators() {
 
@@ -24,6 +25,13 @@ export default function Navigators() {
                 <Stack.Screen
                     name="Stages"
                     component={Stages}
+                    options={{
+                        headerShown:false,
+                    }}
+                />
+                <Stack.Screen
+                    name="About"
+                    component={About}
                     options={{
                         headerShown:false,
                     }}

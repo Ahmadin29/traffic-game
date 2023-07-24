@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import AudioButton from '../components/AudioButton';
+import IonIcon from '@expo/vector-icons/Ionicons'
+import Colors from '../constants/colors';
 
 export default function Home() {
 
@@ -11,11 +13,21 @@ export default function Home() {
             <ImageBackground
                 source={require('../assets/images/background_home.png')}
                 style={{
-                width:"100%",
-                height:"100%",
-                alignItems:"center"
+                    width:"100%",
+                    height:"100%",
+                    alignItems:"center"
                 }}
             >
+                <Image
+                    source={require('../assets/images/umm.png')}
+                    style={{
+                        position:"absolute",
+                        left:20,
+                        top:20,
+                        width:50,
+                        height:50,
+                    }}
+                />
                 <Image
                     source={require('../assets/images/logo.png')}
                     style={{
@@ -36,6 +48,23 @@ export default function Home() {
                         }}
                     />
                 </AudioButton>
+                <View
+                    style={{
+                        position:"absolute",
+                        right:20,
+                        top:20,
+                        width:50,
+                        height:50,
+                    }}
+                >
+                    <AudioButton
+                        onPress={()=>{
+                            navigation.navigate('About' as never);
+                        }}
+                    >
+                        <IonIcon name='information-circle' size={40} color={Colors.text} />
+                    </AudioButton>
+                </View>
             </ImageBackground>
         </View>
     );
